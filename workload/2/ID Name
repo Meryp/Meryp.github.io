@@ -1,0 +1,29 @@
+p {
+font-family: Arial;
+}
+
+h1 {
+color: maroon;
+}
+
+.title {
+color: teal;
+}
+
+.uppercase {
+text-transform: uppercase;
+}
+
+#article-title {
+font-family: cursive;
+text-transform: capitalize;
+}
+
+
+
+
+
+
+<h1 class="title uppercase" id="article-title">Top Vacation Spots</h1>
+<h5>By: Stacy Gray</h5>
+<h6>Published: 2 Days Ago</h6>
