@@ -1,0 +1,6 @@
+.image {
+    background-image: url("https://s3.amazonaws.com/codecademy-content/courses/freelance-1/unit-2/soccer.jpeg");
+    background-size: cover;
+    background-position: center;
+    height: 300px;
+}
