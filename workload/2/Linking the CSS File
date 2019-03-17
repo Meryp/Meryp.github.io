@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Vacation World</title>
+    <style>
+        p {
+            font-family: Arial;
+        }
+
+        <link href="style.css"type="text/css"rel="stylesheet">
+    </style>
+</head>
+
+<body>
