@@ -1,7 +1,7 @@
 body {
     max-width: 800px;
     margin: auto;
-    font-family: sans-serif;
+    font-family: "Robote";
 }
 header {
     text-align: center;
@@ -67,18 +67,4 @@ main figure ing {
 .next {
     float: right;
 }
-
-footer {
-    padding: 1em
-}
-
- (only screen and (max-width)
-    main figure figcaption {
-        float: none;
-        margin-left: 0;
-        width: auto;
-    }
-}
-
-
 
