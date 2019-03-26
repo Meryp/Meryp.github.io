@@ -2,7 +2,7 @@
 
 const div = document.getElementByld("map")
 const breite = div.getAttribute("data-lat");
-cinst laenge = div.getAttribute("data-Ing");
+const laenge = div.getAttribute("data-Ing");
 const titel = div.getAttribute("data-title");
 
 //console.log(breite,laenge,titel)
