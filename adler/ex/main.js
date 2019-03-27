@@ -26,7 +26,7 @@ let pin3 = L.marker(
 
 let blickeGruppe = L.feautureGroup().addTO(karte);
 for (let blick of ADLERBLICKE) {
-    console.log(blick);
+    //console.log(blick);
     let blick = L.marker( 
         [blick.lat,blick.lng]
     ).addTo(blickeGruppe);
