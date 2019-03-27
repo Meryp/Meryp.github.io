@@ -1,4 +1,4 @@
-const adlerblicke = [
+const ADLERBLICKE = [
     {
     kunde: "Wilder Kaiser", 
     standort:"Gruttenhütte",
@@ -22,7 +22,7 @@ const adlerblicke = [
 }
 ];
 
-for (let blick of adlerblicke) {
+for (let blick of ADLERBLICKE) {
     console.log(blick);
     let blick = L.marker( 
         [blick.lat,blick.lng]
