@@ -1,0 +1,69 @@
+body {
+    max-width: 800px;
+    margin: auto;
+    font-family: "Robote";
+}
+header {
+    text-align: center;
+    background-image: url("images/")
+    background-position 0 75%;
+}
+header h2 {
+    font-size: 4em;
+    color:white;
+    margin: 0;
+    padding: 1em 0;
+}
+header h3 {
+
+    font-size: 2em;
+    color: white;
+    margin:0;
+}
+
+header h4 {
+    font-size: 0,75em;
+    color: white;
+
+}
+.author {
+    text-align: center;
+}
+.author ing {
+    border: 4px solid white;
+    border-radius: 50%;
+    margin-top: -50px;
+}
+.address a {
+    color: grey;
+}
+main {
+    width: 70%;
+    margin: auto;
+}
+
+main figure {
+    margin-left: 0;
+}
+
+main figcaption {
+    float: left;
+    margin-left: 12em;
+    width: 11,5em;
+}
+main figure ing {
+    width: 90%;
+}
+
+#map  {
+    height: 360px;
+    width: 90%;
+    border: 1px solid black;
+}
+
+.back {
+    float: left;
+}
+.next {
+    float: right;
+}
