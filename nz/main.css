@@ -1,24 +1,25 @@
 body {
-    max-width: 800px;
-    margin: auto;
-    font-family: "Robote";
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: open-sans;
 }
 header {
     text-align: center;
     background-image: url("images/header.jpg")
-    background-position 0 75%;
+    background-position 0 50%;
 }
 header h2 {
     font-size: 4em;
     color:white;
     margin: 0;
-    padding: 1em 0;
+    padding: 1em 0;/*Padding ist innerhalb vom Element, 1.Wert für oben/unten,2.Wert für rechts/links*/
 }
 header h3 {
 
     font-size: 2em;
+    margin: 0;/*Margin vom obersten Element auf 0*, wenn das Element ganz oben an der Seite angrenzen soll*/
     color: white;
-    margin:0;
 }
 
 header h4 {
@@ -29,13 +30,13 @@ header h4 {
 .author {
     text-align: center;
 }
-.author ing {
-    border: 4px solid white;
+.author img {
     border-radius: 50%;
     margin-top: -50px;
 }
 .address a {
     color: grey;
+    font-size: 20px;
 }
 main {
     width: 70%;
@@ -43,15 +44,22 @@ main {
 }
 
 main figure {
-    margin-left: 0;
+    margin-left: 0;/*damit das Bild auf den gleichen Rand hat wie der Text im <main>-Element*//* strg k+c kommentieren, srtg k+c auskommentieren */
 }
 
 main figcaption {
     float: left;
-    margin-left: 12em;
-    width: 11,5em;
+    margin-left: -5em;
+    width: 3em;
+    color: red;
 }
-main figure ing {
+
+main figcaption fas fa-camera {
+    font-size: 20px;
+}
+
+
+main figure img {
     width: 90%;
 }
 
@@ -66,4 +74,16 @@ main figure ing {
 }
 .next {
     float: right;
+}
+
+footer {
+    padding: 1em 3em 0;
+}
+@media only screen and (max-width:900px){ 
+    /*wenn der Bildschirm schmaler als 900px ist, dann springt Caption über das Bild*/ 
+    main figure figcaption {
+        float: none;
+        margin-left: 0;
+        width:auto;
+    }
 }
