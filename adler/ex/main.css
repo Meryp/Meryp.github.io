@@ -6,11 +6,11 @@ body {
 header {
     text-align: center;
     background-image: url("images/innsbruck-3829864_640.jpg");
-    background-position 0 7%;
+    background-position: 0 7%;
 }
 header h2 {
     font-size: 4em;
-    color:white;
+    color: white;
     margin: 0;
     padding: 1em 0;/*Padding ist innerhalb vom Element, 1.Wert für oben/unten,2.Wert für rechts/links*/
 }
