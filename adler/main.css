@@ -1,28 +1,29 @@
 body {
-    max-width: 800px;
-    margin: auto;
-    font-family: "Robote";
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: open-sans;
 }
 header {
     text-align: center;
-    background-image: url("images/innsbruck-3829864_640.jpg");
-    background-position: 0 7%;
+    background-image: url("images/adler.jpg");
+    background-position: 0 50%;
 }
 header h2 {
     font-size: 4em;
-    color: white;
+    color:white;
     margin: 0;
     padding: 1em 0;/*Padding ist innerhalb vom Element, 1.Wert für oben/unten,2.Wert für rechts/links*/
 }
 header h3 {
 
-    font-size: 2em;
+    font-size: 3em;
     margin: 0;/*Margin vom obersten Element auf 0*, wenn das Element ganz oben an der Seite angrenzen soll*/
     color: white;
 }
 
 header h4 {
-    font-size: 0,75em;
+    font-size: 2em;
     color: white;
 
 }
@@ -32,9 +33,10 @@ header h4 {
 .author img {
     border-radius: 50%;
     margin-top: -50px;
+    border: 4px solid white;
 }
-.address a {
-    color: grey;
+address a {
+    color:gray;
     font-size: 20px;
 }
 main {
@@ -50,7 +52,7 @@ main figcaption {
     float: left;
     margin-left: -5em;
     width: 3em;
-    color: red;
+    color: black;
 }
 
 main figcaption fas fa-camera {
