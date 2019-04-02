@@ -1,9 +1,9 @@
 //alert("Hallo Welt");
 
 const div = document.getElementById("map");
-const breite = div.getAttribute("data-lat");
-const laenge = div.getAttribute("data-lng");
-const titel = div.getAttribute("data-title");
+const breite = div.getAttribute("data-lat1");
+const laenge = div.getAttribute("data-lng1");
+const titel = div.getAttribute("data-title1");
 
 //console.log(breite,laenge,titel)
 
@@ -22,15 +22,16 @@ karte.setView(
 L.tileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png").addTo(karte);
 
 //Positionsmarker hinzufügen 
-let pin = L.marker([breite,laenge]).addTo(karte);
+let pin1 = L.marker([breite,laenge])
+.addTo(karte);
 
 //Popup zum Pin hängen 
-pin.bindPopup(titel).openPopup();
+pin1.bindPopup(title1).openPopup();
 
 let pin3 = L.marker(
     [blick1.lat, blick1.lng]).addTo(karte);
 
-let blickeGruppe = L.feautureGroup().addTO(karte);
+let blickeGruppe = L.feautureGroup().addTo(karte);
 for (let blick of ADLERBLICKE) {
     //console.log(blick);
     let blick = L.marker( 
@@ -42,7 +43,7 @@ for (let blick of ADLERBLICKE) {
         <em>Kunde: ${blick1.kunde}</em>`
         );
 };
-console.log(blickeGruppe.getBounds());
+//console.log(blickeGruppe.getBounds());
 // auf Adlerblicke zoomen
 karte.fitBounds(blickeGruppe.getBounds());
 
