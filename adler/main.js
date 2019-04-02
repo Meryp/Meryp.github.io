@@ -10,19 +10,25 @@ const titel = div.getAttribute("data-title");
 //Karte initialisiren
 
 let karte = L.map("map");
+
 //console.log(karte);
 //aus Ausschnitt zoomen
 
+karte.setView(
+    [breite,laenge],
+    13);
 
-//openstreetmap hinzufügen L.tileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png").addTo(karte);
+//openstreetmap hinzufügen 
+L.tileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png").addTo(karte);
 
-//Positionsmarker hinzufügen let pin = L.marker([breite,laenge]).addTo(karte);
+//Positionsmarker hinzufügen 
+let pin = L.marker([breite,laenge]).addTo(karte);
 
-//Popup zum Pin hängen pin.bindPopup(titel).openPopup();
+//Popup zum Pin hängen 
+pin.bindPopup(titel).openPopup();
 
 let pin3 = L.marker(
-    [blick1.lat, blick1.lng]
-).addTo(karte);
+    [blick1.lat, blick1.lng]).addTo(karte);
 
 let blickeGruppe = L.feautureGroup().addTO(karte);
 for (let blick of ADLERBLICKE) {
