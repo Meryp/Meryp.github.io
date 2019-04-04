@@ -79,7 +79,7 @@ stamen_watercolor: L.tileLayer("http://stamen-tiles-{s}.a.ssl.fastly.net/waterco
 
 
 
-kartenLayer.osm.addTo(karte);
+//kartenLayer.osm.addTo(karte);
 kartenLayer.geolandbasemap.addTo(karte);
 kartenLayer.bmapoverlay.addTo(karte);
 kartenLayer.geolandbasemapgrau.addTo(karte);
