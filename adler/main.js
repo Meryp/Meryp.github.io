@@ -5,21 +5,21 @@ const breite = div.getAttribute("data-lat1");
 const laenge = div.getAttribute("data-lng1");
 const titel = div.getAttribute("data-title1");
 
-//console.log("Breite="breite,"Länge="laenge,"Titel=",titel);
+//console.log("Breite="breite,"Länge="laenge,"Titel=",titel)
 
 //Karte initialisieren
 
 let karte = L.map("map");
 
 //console.log(karte);
-//aus Ausschnitt zoomen
-
+//auf Ausschnitt zoomen
 karte.setView(
-    [breite,laenge],
-    13);
+    [breite,laenge], 
+13);
 
+//Karten einbauen
 const kartenLayer = {
-    osm: L.tileLayer ("https://{s}.tile.osm.org/{z}/{x}/{y}.png",{
+    osm: L.tileLayer ("https://{s}.tile.osm.org/{z}/{x}/{y}.png", {
     attribution:'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
 }),
 geolandbasemap: L.tileLayer("https://{s}.wien.gv.at/basemap/geolandbasemap/normal/google3857/{z}/{y}/{x}.png",{
@@ -42,7 +42,7 @@ bmaporthofoto30cm: L.tileLayer("https://{s}.wien.gv.at/basemap/bmaporthofoto30cm
     subdomains:["maps","maps1","maps2","maps3","maps4"],
     attribution: 'Datenquelle: <a href="https://www.basemap.at">basemap.at</a>'
 }),
-geolandbasemapgelaende: L.tileLayer("https://{s}.wien.gv.at/basemap/bmapgelaende/normal/google3857/{z}/{y}/{x}.jpeg",{
+bmapgelaende: L.tileLayer("https://{s}.wien.gv.at/basemap/bmapgelaende/normal/google3857/{z}/{y}/{x}.jpeg",{
     subdomains:["maps","maps1","maps2","maps3","maps4"],
     attribution: 'Datenquelle: <a href="https://www.basemap.at">basemap.at</a>'
 }),
@@ -67,18 +67,34 @@ stamen_watercolor: L.tileLayer("http://stamen-tiles-{s}.a.ssl.fastly.net/waterco
     }) 
 };
 
-//kartenLayer.osm.addTo(karte);
-//kartenLayer.geolandbasemap.addTo(karte);
-//kartenLayer.bmapgelaende.addTo(karte);
-//kartenLayer.geolandbasemapgrau.addTo(karte);
+
+
+kartenLayer.osm.addTo(karte);
+kartenLayer.geolandbasemap.addTo(karte);
+kartenLayer.bmapoverlay.addTo(karte);
+kartenLayer.geolandbasemapgrau.addTo(karte);
+kartenLayer.basemaphighdpi.addTo(karte);
+kartenLayer.bmaporthofoto30cm.addTo(karte);
+kartenLayer.bmapgelaende.addTo(karte);
+kartenLayer.geolandbasemapoberflaeche.addTo(karte);
+kartenLayer.stamen_toner.addTo(karte);
+kartenLayer.stamen_terrain.addTo(karte);
+kartenLayer.stamen_watercolor.addTo(karte);
 
 
 //Auswahlmenü hinzufügen
 L.control.layers({
-"geolandbasemap": kartenLayer. geolandbasemap,
-"mapoverlay": kartenLayer.mapoverlay,
-"geolandbasemapgrau": kartenLayer. geolandbasemapgrau,
-
+    "Openstreetmap": kartenLayer.osm,
+    "Geoland Basemap": kartenLayer.geolandbasemap,
+    "Geoland Basemap Overlay": kartenLayer.mapoverlay,
+    "Geoland Basemap Grau": kartenLayer.bmapgrau,
+    "Geoland Basemap HIDPI": kartenLayer.bmaphidpi,
+    "Geoland Basemap Foto": kartenLayer.bmaporthofoto30cm,
+    "Geoland Basemap Gelaende": kartenLayer.bmapgelaende,
+    "Geoland Basemap Flaeche": kartenLayer.bmapoberflaeche,
+    "Stamen Maps Toner": kartenLayer.stamen_toner,
+    "Stamen Maps Terrain":kartenLayer.stamen_terrain,
+    "Stamen Maps Watercolor":kartenLayer.stamen_watercolor
 }).addTo(karte);
 
 //1. Positionsmarker hinzufügen 
