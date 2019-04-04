@@ -5,6 +5,16 @@ const breite = div.getAttribute("data-lat1");
 const laenge = div.getAttribute("data-lng1");
 const titel = div.getAttribute("data-title1");
 
+//punkt 2
+const breite2= div.getAttribute("data-lat2");
+const laenge2= div.getAttribute("data-lng2");
+const titel2 = div.getAttribute("data-title2");
+
+//punkt 3
+const breite3= div.getAttribute("data-lat3");
+const laenge3= div.getAttribute("data-lng3");
+const titel3= div.getAttribute("data-title3");
+
 //console.log("Breite="breite,"Länge="laenge,"Titel=",titel)
 
 //Karte initialisieren
@@ -97,32 +107,49 @@ L.control.layers({
     "Stamen Maps Watercolor":kartenLayer.stamen_watercolor
 }).addTo(karte);
 
-//1. Positionsmarker hinzufügen 
-let pin1 = L.marker([breite,laenge])
-.addTo(karte);
 
-//Popup zum Pin hängen 
-pin1.bindPopup(title1).openPopup();
-
-let pin3 = L.marker(
-    [blick1.lat, blick1.lng]).addTo(karte);
-
+//Fernrohre
 let blickeGruppe = L.feautureGroup().addTo(karte);
+
+//Positionsmarker hinzufügen mit Popup Pin hinzufügen
+
+//Positionsmarker 1
+
+let pin1 = L.marker([breite1,laenge1])
+.addTo(blickegruppe);
+pin1.bindPopup(titel1).openPopup();
+
+//Positionsmarker 2
+let pin2 = L.marker([breite2,laenge2])
+.addTo(blickegruppe);
+pin1.bindPopup(titel2).openPopup();
+
+//Positionsmarker 3
+let pin3 = L.marker([breite3,laenge3])
+.addTo(blickegruppe);
+pin1.bindPopup(titel3).openPopup();
+
+//Schleife
 for (let blick of ADLERBLICKE) {
     //console.log(blick);
     let blick = L.marker( 
         [blick.lat,blick.lng]
     ).addTo(blickeGruppe);
     blickpin.bindPopup(
-        `<h1>Standort ${blick1.standort}</h1>
-        <p>Höhe: ${blick1.seehoehe} m</p>
-        <em>Kunde: ${blick1.kunde}</em>`
+        `<h1>Standort ${blick.standort}</h1>
+        <p>Höhe: ${blick.seehoehe} m</p>
+        <em>Kunde: ${blick.kunde}</em>`
         );
-};
-//console.log(blickeGruppe.getBounds());
+}
+
+//setzt Standard Zoom so, dass all die gesetzen Markierungen auf die Adlerblicke zoomen
+console.log(blickeGruppe.getBounds());
 // auf Adlerblicke zoomen
 karte.fitBounds(blickeGruppe.getBounds());
 karte.addControl(new L.Control.Fullscreen());
+
+
+//Plugin (leaflet-hash) CDN:Fügt Koordinaten zu HTML Link hinzu
 var hash = new L.Hash(karte);
 
 var coonds = new L.Control.Coordinates ();
@@ -130,9 +157,3 @@ coords.addTo(karte);
 karte.on ('click', function(e) {
     coords.setCoordinates(e);
 });
-
-
-
-
-
-
