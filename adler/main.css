@@ -1,5 +1,5 @@
 body {
-    max-width: 1000px;
+    max-width: 1280px;
     margin-left: auto;
     margin-right: auto;
     font-family: open-sans;
@@ -10,14 +10,14 @@ header {
     background-position: 0 50%;
 }
 header h2 {
-    font-size: 4em;
+    font-size: 6em;
     color:white;
     margin: 0;
     padding: 1em 0;/*Padding ist innerhalb vom Element, 1.Wert für oben/unten,2.Wert für rechts/links*/
 }
 header h3 {
 
-    font-size: 3em;
+    font-size: 2em;
     margin: 0;/*Margin vom obersten Element auf 0*, wenn das Element ganz oben an der Seite angrenzen soll*/
     color: white;
 }
@@ -52,7 +52,7 @@ main figcaption {
     float: left;
     margin-left: -5em;
     width: 3em;
-    color: black;
+    color: grey;
 }
 
 main figcaption fas fa-camera {
