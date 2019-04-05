@@ -160,7 +160,7 @@ for (let blick of ADLERBLICKE) {
 //console.log(blickeGruppe.getBounds());
 // Auf Adlerblicke zoomen
 karte.fitBounds(blickeGruppe.getBounds());
-karte.addControl(new L.Control.Fullscreen()); //Fullscreen Plugin
+karte.addControl(new L. Control.Fullscreen()); //Fullscreen Plugin
 var hash = new L.Hash(karte);// Koordinaten anzeigen im Link
 
 var coords = new L.Control.Coordinates();//Koordinaten durch Klick anzeigen

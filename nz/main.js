@@ -15,9 +15,9 @@ let karte = L.map("map");
 //aus Ausschnitt zoomen
 
 karte.setView(
-    [breite, laenge],
+    [breite,laenge],
     13);
-
+    
 //openstreetmap hinzufügen 
 L.tileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png").addTo(karte);
 
@@ -68,10 +68,11 @@ let pin = L.marker([breite, laenge]).addTo(karte);
 pin.bindPopup(titel).openPopup();
 
 //Karten Plugin
-karte.addControl(new L.Control.Fullscreen());
-var hash = new L.Hash(karte);
-var coords = new L.Control.Coordinates();
+karte.addControl(new L. Control.Fullscreen()); //Fullscreen Plugin
+var hash = new L.Hash(karte);// Koordinaten anzeigen im Link
+
+var coords = new L.Control.Coordinates();//Koordinaten durch Klick anzeigen
 coords.addTo(karte);
-karte.on('click', function(e) {
-	coords.setCoordinates(e);
+karte.on('click', function (e) {
+    coords.setCoordinates(e);
 });
