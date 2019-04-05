@@ -2,7 +2,7 @@ body {
     max-width: 1280px;
     margin-left: auto;
     margin-right: auto;
-    font-family: open-sans;
+    font-family: "open-sans";
 }
 header {
     text-align: center;
@@ -10,7 +10,7 @@ header {
     background-position: 0 75%;
 }
 header h2 {
-    font-size: 4em;
+    font-size: 3em;
     color:white;
     margin: 0;
     padding: 1em 0;/*Padding ist innerhalb vom Element, 1.Wert für oben/unten,2.Wert für rechts/links*/
