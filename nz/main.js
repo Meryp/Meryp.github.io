@@ -68,11 +68,12 @@ let pin = L.marker([breite, laenge]).addTo(karte);
 pin.bindPopup(titel).openPopup();
 
 //Karten Plugin
-karte.addControl(new L. Control.Fullscreen()); //Fullscreen Plugin
+karte.addControl(new L. Control.Fullscreen()); 
 var hash = new L.Hash(karte);// Koordinaten anzeigen im Link
 
-var coords = new L.Control.Coordinates();//Koordinaten durch Klick anzeigen
+var coords = new L. Control.Coordinates();//Koordinaten durch Klick anzeigen
 coords.addTo(karte);
 karte.on('click', function (e) {
     coords.setCoordinates(e);
 });
+
