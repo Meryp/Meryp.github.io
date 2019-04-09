@@ -120,9 +120,7 @@ L.control.layers({
 
 
 
-//Fernrohre
 let blickeGruppe = L.featureGroup().addTo(karte);
-
 //Positionsmarker hinzufügen mit Popup Pin hinzufügen
 
 //Positionsmarker 1
@@ -148,7 +146,7 @@ pin3.bindPopup(titel4).openPopup();
 //Schleife
 for (let blick of ADLERBLICKE) {
     console.log(blick);
-    let blick = L.marker(
+    let blickpin = L.marker(
         [blick.lat, blick.lng]
     ).addTo(blickeGruppe);
     blickpin.bindPopup(
