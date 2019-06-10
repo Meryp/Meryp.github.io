@@ -67,105 +67,163 @@ kartenLayer.bmapgrau.addTo(karte);
 
 karte.addControl(new L.Control.Fullscreen());
 
+const wikipediaGruppe = L.featureGroup().addTo(karte);
+layerControl.addOverlay(wikipediaGruppe, "Wikipedia Artikel");
+
+
+async function wikipediaArtikelLaden(url) {
+    wikipediaGruppe.clearLayers();
+
+
+    console.log("Lade", url);
+
+
+    const response = await fetch(url)
+    const jsonData = await response.json();
+
+    console.log(jsonData);
+    for (let artikel of jsonData.geonames) {
+        const wikipediamarker = L.marker([artikel.lat, artikel.lng], {
+            icon: L.icon({
+                iconUrl: "icons/wikipedia-logo.png",
+                iconSize: [22, 22]
+            })
+
+        }).addTo(wikipediaGruppe);
+
+
+        wikipediamarker.bindPopup(`
+        <h3>${artikel.titel}</h3>
+        <p>${artikel.summary}</p>
+        <hr>
+        <footer><a target="_blank" href="https://${artikel.wikipediaUrl}"Weblink</a></footer>
+        `);
+    }
+}
+
+let letzteGeonamesUrl = null;
+karte.on("load zoomend moveend", function () {
+    console.log("karte geladen", karte.getBounds());
+
+    let ausschnitt = {
+        n: karte.getBounds().getNorth(),
+        s: karte.getBounds().getSouth(),
+        o: karte.getBounds().getEast(),
+        w: karte.getBounds().getWest()
+    }
+    console.log(ausschnitt);
+    const geonamesUrl = `http://secure.geonames.org/wikipediaBoundingBoxJSON?formatted=true&north=${ausschnitt.n}&south=${ausschnitt.s}&east=${ausschnitt.o}&west=${ausschnitt.w}&username=webmapping&style=full&maxRows=50&lang=de`;
+    console.log(geonamesUrl);
+
+    if (geonamesUrl != letzteGeonamesUrl) {
+        //JSON-Artikel Laden
+        wikipediaArtikelLaden(geonamesUrl);
+        letzteGeonamesUrl = geonamesUrl;
+    }
+});
+
 karte.setView([48.208333, 16.373056], 12);
 
-// https://github.com/Norkart/Leaflet-MiniMap
-new L.Control.MiniMap(
-    L.tileLayer("https://{s}.wien.gv.at/basemap/geolandbasemap/normal/google3857/{z}/{y}/{x}.png", {
-        subdomains: ["maps", "maps1", "maps2", "maps3", "maps4"], //subdomains für untetscheidliche Server und bezieht sich auf s
-    }), {
-        zoomLevelOffset: -4,
-        toggleDisplay: true
-    }
-).addTo(karte);
 
-// die Implementierung der Karte startet hier
+const url = 'https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:SPAZIERPUNKTOGD &srsName=EPSG:4326&outputFormat=json'
 
-const urlsight = 'https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:WLANWIENATOGD&srsName=EPSG:4326&outputFormat=json'
-
-function makewlanMarker(feature, latlng) { //Funktionsname 
-    const fotoicon = L.icon({ //icon erzeugen --> wo liegt das Bild und wie groß?
-        iconUrl: 'http://www.data.wien.gv.at/icons/wlanwienatogd.png',
-        iconSize: [36, 36]
+function sightmakemarker(feature, latlng) {
+    const icon = L.icon({
+        iconUrl: 'http://www.data.wien.gv.at/icons/sehenswuerdigogd.svg',
+        iconSize: [16, 16]
     });
-
-    const wlanmarker = L.marker(latlng, { //Marker erzeugen und Position
-        icon: fotoicon //dann gebe ich dem Marker das Icon, sonst wäre er blau
-    });
-
-    wlanmarker.bindPopup(`
- <h3>${feature.properties.NAME}</h3> 
-<h4>${feature.properties.ADRESSE}</h4>
-<footer><a href="${feature.properties.WEITERE_INFORMATIONEN}" target="_blan">Weitere Informationen</a></footer>
- `)
-
-    return wlanmarker;
-}
-
-async function loadWlan(urlsight) { //damit man es laden kann muss man eine Funktion definieren
-    const wlanclusterGruppe = L.markerClusterGroup(); //erzeugen von featureGroup -- markerClusterGroup ist so definiert und kann nicht geändert werden
-    const response = await fetch(urlsight); //innerhalb der asynchronen funktion abwarten bis das fetch fertig ist
-    const wlanData = await response.json(); //in json umwandeln
-    const geoJson = L.geoJson(wlanData, { //Wert der GeoJson Varibale wird in einer KOnstante gespeichert jetzt
-        pointToLayer: makewlanMarker //wie wird der Punkt in einen Layer umgewandelt? //Funktionsname
-    });
-    wlanclusterGruppe.addLayer(geoJson);
-    karte.addLayer(wlanclusterGruppe);
-    layerControl.addOverlay(wlanclusterGruppe, "Wlan-Punkte")
-}
-
-loadWlan(urlsight);
-
-const url = 'https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:SPAZIERPUNKTOGD &srsName=EPSG:4326&outputFormat=json';
-
-
-
-function makeMarker(feature, latlng) { //Funktionsname 
-    const fotoicon = L.icon({ //icon erzeugen --> wo liegt das Bild und wie groß?
-        iconUrl: 'http://www.data.wien.gv.at/icons/sehenswuerdigogd.png',
-        iconSize: [25, 25]
-    });
-
-    const sightmarker = L.marker(latlng, { //Marker erzeugen und Position
-        icon: fotoicon //dann gebe ich dem Marker das Icon, sonst wäre er blau
+    const sightmarker = L.marker(latlng, {
+        icon: icon
     });
 
     sightmarker.bindPopup(`
- <h3>${feature.properties.NAME}</h3>  
- <p>${feature.properties.BEMERKUNG}</p>
- <hr>
- <footer><a href="${feature.properties.WEITERE_INF}" target="_blan">Weblink</a></footer>
- `);
-
-    return sightmarker; //funktion gibt Marker zurück
+        <h3>${feature.properties.NAME}</h3>
+        <p> ${feature.properties.BEMERKUNG}<p>
+        <hr>
+        <footer><a href="${feature.properties.WEITERE_INF}" target = "Wienfenster" >Weblink</a></footer>
+        `);
+    return sightmarker
 }
-
-
-async function loadSights(url) { //damit man es laden kann muss man eine Funktion definieren
-    const sehenswuerdigkeitenclusterGruppe = L.markerClusterGroup(); //erzeugen von featureGroup -- markerClusterGroup ist so definiert und kann nicht geändert werden
-    const response = await fetch(url); //innerhalb der asynchronen funktion abwarten bis das fetch fertig ist
-    const sightsData = await response.json(); //in json umwandeln
-    const geoJson = L.geoJson(sightsData, { //Wert der GeoJson Varibale wird in einer KOnstante gespeichert jetzt
-        pointToLayer: makeMarker //wie wird der Punkt in einen Layer umgewandelt? //Funktionsname
+async function loadSights(url) {
+    const clusterGruppe = L.markerClusterGroup();
+    const response = await fetch(url);
+    const sightsData = await response.json();
+    const geoJson = L.geoJson(sightsData, {
+        pointToLayer: sightmakemarker
     });
-    sehenswuerdigkeitenclusterGruppe.addLayer(geoJson); //fühe GeoJson zu ClusterGruppe
-    karte.addLayer(sehenswuerdigkeitenclusterGruppe);
-    layerControl.addOverlay(sehenswuerdigkeitenclusterGruppe, "Sehenswürdigkeiten")
-
+    clusterGruppe.addLayer(geoJson);
+    karte.addLayer(clusterGruppe);
+    layerControl.addOverlay(clusterGruppe, "Sehenswürdigkeiten");
 
     const suchFeld = new L.Control.Search({
-        layer: sehenswuerdigkeitenclusterGruppe,
+        layer: clusterGruppe,
         propertyName: "NAME",
         zoom: 17,
-        initial: false,
+        initial: false
     });
     karte.addControl(suchFeld);
 }
-
 loadSights(url);
-//Maßstab einbauen
-const massstab = L.control.scale({
+
+const scale = L.control.scale({
     imperial: false,
     metric: true,
 });
-karte.addControl(massstab);
+karte.addControl(scale);
+
+const wege = 'https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:SPAZIERLINIEOGD&srsName=EPSG:4326&outputFormat=json'
+
+function linienPopup(feature, layer) {
+    const popup = `
+    <h3>${feature.properties.NAME}<h3>`
+    layer.bindPopup(popup);
+    return popup
+}
+
+async function loadWege(wegeUrl) {
+    const response = await fetch(wegeUrl)
+    const wegeData = await response.json();
+    const wegeJson = L.geoJson(wegeData, {
+        style: function () {
+            return {
+                color: "green"
+            };
+        },
+        onEachFeature: linienPopup
+    });
+    karte.addLayer(wegeJson);
+    layerControl.addOverlay(wegeJson, "Spazierwege");
+}
+loadWege(wege);
+
+const wlan = 'https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:WLANWIENATOGD&srsName=EPSG:4326&outputFormat=json'
+
+function makeMarker(feature, latlng) {
+    const wlanIcon = L.icon({
+        iconUrl: 'http://www.data.wien.gv.at/icons/wlanwienatogd.svg',
+        iconSize: [16, 16]
+    });
+    const wlanMarker = L.marker(latlng, {
+        icon: wlanIcon
+    });
+    wlanMarker.bindPopup(`
+        <h3>${feature.properties.NAME}</h3>
+        <p>${feature.properties.ADRESSE}</p>  
+        `);
+    return wlanMarker;
+}
+
+async function loadwlan(url) {
+    const wlanclusterGruppe = L.markerClusterGroup();
+    const wlanresponse = await fetch(url);
+    const wlanData = await wlanresponse.json();
+    const wlangeoJson = L.geoJson(wlanData, {
+        pointToLayer: makeMarker
+    });
+    wlanclusterGruppe.addLayer(wlangeoJson);
+    karte.addLayer(wlanclusterGruppe);
+    layerControl.addOverlay(wlanclusterGruppe, "Wlan Standort");
+
+}
+
+loadwlan(wlan);
